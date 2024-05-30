@@ -1,6 +1,7 @@
 import React from "react";
 import TableRow from '@material-ui/core/TableRow'; // 올바른 경로로 수정
 import TableCell from '@material-ui/core/TableCell'; // 예시로 추가
+import CustomerDelete from "./CustomerDelete";
 
 class Customer extends React.Component {
     render() {
@@ -12,6 +13,7 @@ class Customer extends React.Component {
                     <TableCell>{this.props.birthday}</TableCell>
                     <TableCell>{this.props.gender}</TableCell>
                     <TableCell>{this.props.job}</TableCell>
+                    <TableCell><CustomerDelete stateRefresh={this.props.stateRefresh} id={this.props.id}/></TableCell>
                 </TableRow>
         )
     }

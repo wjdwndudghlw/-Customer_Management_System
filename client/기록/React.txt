@@ -229,3 +229,33 @@ javascript
 app.listen(port, () => console.log(`Listening on port ${port}`));
 서버 시작: 설정된 포트에서 서버를 시작하고 콘솔에 로그를 출력합니다.
 이 코드의 핵심 기능은 클라이언트가 고객 정보를 조회하고, 새로운 고객 정보를 업로드하며, 업로드된 이미지를 제공하는 것입니다. 이를 위해 Express.js, MySQL, multer 등의 모듈을 사용합니다.
+-----------------------------------------------------------------------------------
+14강
+부모 컴포넌트: ParentComponent는 stateRefresh 메서드를 정의하고 이를 CustomerAdd 컴포넌트에 stateRefresh1라는 이름으로 전달합니다.
+자식 컴포넌트: CustomerAdd 컴포넌트는 props.stateRefresh1을 통해 부모 컴포넌트에서 전달된 stateRefresh 메서드를 호출합니다.
+이 경우, CustomerAdd 컴포넌트에서는 this.props.stateRefresh1을 통해 부모 컴포넌트의 stateRefresh 메서드에 접근할 수 있습니다. 이는 props를 통해 부모 컴포넌트의 메서드를 자식 컴포넌트에 전달하고 호출하는 일반적인 React 패턴입니다.
+-----------------------------------------------------------------------------------
+15강
+req 객체는 Express.js에서 HTTP 요청에 대한 정보를 담고 있습니다. 이 객체는 req.body, req.params, req.query, req.headers, req.cookies 등 다양한 속성을 가지고 있어, 클라이언트로부터 전송된 데이터를 접근할 수 있게 합니다.
+
+위 코드에서 req.file.filename, req.body.name, req.params.id를 사용하고 있는 이유는 각각의 데이터가 다른 방식으로 전송되기 때문입니다.
+
+req.file.filename
+req.file은 파일 업로드를 다룰 때 사용합니다.
+upload.single("image") 미들웨어를 통해 파일이 업로드되면 req.file 객체에 파일 정보가 저장됩니다.
+req.file.filename은 업로드된 파일의 이름을 의미합니다.
+이는 파일 업로드와 관련된 요청에서만 사용됩니다.
+req.body.name
+req.body는 주로 POST, PUT 등의 요청에서 사용되며, 클라이언트가 전송한 JSON, 폼 데이터 등의 본문을 담고 있습니다.
+req.body.name은 요청 본문에서 name이라는 필드의 값을 가져옵니다.
+이는 클라이언트가 폼을 통해 데이터를 전송했을 때, 해당 데이터를 접근하는 방법입니다.
+req.params.id
+req.params는 URL 경로 매개변수를 다룰 때 사용됩니다.
+"/api/customers/:id"와 같은 라우트에서 :id는 동적 세그먼트로, URL 경로에서 해당 부분에 해당하는 값을 req.params를 통해 접근할 수 있습니다.
+req.params.id는 URL 경로에서 id라는 이름의 매개변수 값을 가져옵니다.
+이는 URL 경로에 포함된 데이터(예: 특정 자원 식별자)를 접근하는 방법입니다.
+정리
+req.file.filename: 파일 업로드에서 업로드된 파일의 이름을 가져옴.
+req.body.name: POST 요청 본문에서 name 필드의 값을 가져옴.
+req.params.id: URL 경로에서 id 매개변수의 값을 가져옴.
+
