@@ -229,6 +229,57 @@ javascript
 app.listen(port, () => console.log(`Listening on port ${port}`));
 서버 시작: 설정된 포트에서 서버를 시작하고 콘솔에 로그를 출력합니다.
 이 코드의 핵심 기능은 클라이언트가 고객 정보를 조회하고, 새로운 고객 정보를 업로드하며, 업로드된 이미지를 제공하는 것입니다. 이를 위해 Express.js, MySQL, multer 등의 모듈을 사용합니다.
+
+
+
+
+
+
+
+
+
+1. app.use("/image", express.static("./upload"));
+이 함수는 Express 애플리케이션에서 정적 파일을 제공하는 데 사용됩니다. express.static 미들웨어를 사용하여 특정 디렉토리의 파일을 클라이언트에 제공할 수 있습니다.
+
+목적: 서버에 저장된 파일을 클라이언트에 제공 (정적 파일 서비스).
+기능: ./upload 디렉토리의 파일을 /image 경로를 통해 클라이언트가 접근할 수 있게 합니다. 예를 들어, 클라이언트가 /image/filename.jpg로 요청하면 서버는 ./upload/filename.jpg 파일을 제공하게 됩니다.
+사용 예시:
+javascript
+코드 복사
+app.use("/image", express.static("./upload"));
+2. upload.single("image")
+이 함수는 multer 미들웨어의 기능으로, 파일 업로드를 처리하는 데 사용됩니다. 클라이언트가 서버로 파일을 업로드할 때 해당 파일을 처리하고 저장합니다.
+
+목적: 클라이언트가 서버로 전송한 파일을 처리하고 저장.
+기능: 클라이언트가 폼을 통해 업로드한 파일을 서버의 지정된 디렉토리에 저장합니다. single("image")는 단일 파일 업로드를 의미하며, 업로드된 파일의 필드 이름이 image이어야 합니다.
+사용 예시:
+javascript
+코드 복사
+const multer = require('multer');
+const upload = multer({ dest: 'upload/' });
+
+app.post('/api/customers', upload.single("image"), (req, res) => {
+    // 파일 업로드 처리 및 데이터베이스 저장 로직
+});
+요약
+app.use("/image", express.static("./upload"));:
+
+정적 파일을 제공.
+서버의 특정 디렉토리(./upload)에 저장된 파일을 클라이언트가 접근할 수 있게 함.
+upload.single("image"):
+
+파일 업로드 처리.
+클라이언트가 전송한 파일을 서버의 지정된 디렉토리에 저장.
+파일 필드 이름이 image인 단일 파일을 처리.
+두 함수는 서로 보완적인 역할을 합니다. upload.single("image")는 클라이언트로부터 파일을 업로드 받아 서버에 저장하고, app.use("/image", express.static("./upload"));는 저장된 파일을 클라이언트가 접근할 수 있게 합니다.
+
+
+
+
+
+그러면 image 라는 폴더는 실제로 존재하는거야?
+ChatGPT
+app.use("/image", express.static("./upload"));에서 지정한 image라는 폴더는 실제로 존재하지 않아도 됩니다. 대신, upload 폴더가 실제로 존재해야 합니다. image는 URL 경로를 나타내며, 실제 파일이 저장되는 위치는 upload 폴더입니다.
 -----------------------------------------------------------------------------------
 14강
 부모 컴포넌트: ParentComponent는 stateRefresh 메서드를 정의하고 이를 CustomerAdd 컴포넌트에 stateRefresh1라는 이름으로 전달합니다.
